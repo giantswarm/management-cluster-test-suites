@@ -7,4 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Added
+
+- Initial basic cluster-wide tests
+- CAPA standard test suite
+
 [Unreleased]: https://github.com/giantswarm/management-cluster-test-suites/tree/main

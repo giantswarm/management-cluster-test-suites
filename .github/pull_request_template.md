@@ -1,21 +1,10 @@
-### What does this PR do?
+### What this PR does
 
-(Please set a descriptive PR title. Use this space for additional explanations.)
 
-### What is the effect of this change to users?
+### Checklist
 
-### How does it look like?
+- [ ] Update changelog in CHANGELOG.md.
 
-(Please add anything that represents the change visually. Screenshots, output, logs, ...)
+### Trigger e2e tests
 
-### Any background context you can provide?
-
-(Please link public issues or summarize if not public.)
-
-### What is needed from the reviewers?
-
-### Do the docs need to be updated?
-
-### Should this change be mentioned in the release notes?
-
-- [ ] CHANGELOG.md has been updated (if it exists)
+NOT CURRENTLY IMPLEMENTED
