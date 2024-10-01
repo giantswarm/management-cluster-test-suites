@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Bump `clustertest` with fixes for `GetLogs` and excluding running Job when checkking for unsuccessful
+
 ## [0.2.0] - 2024-10-01
 
 ### Added
