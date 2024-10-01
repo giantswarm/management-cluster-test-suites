@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added failure handlers to test cases to get more debug info on failure
+
 ## [0.1.1] - 2024-09-24
 
 ### Fixed
