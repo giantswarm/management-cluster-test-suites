@@ -109,9 +109,12 @@ func RunBasic() {
 					5,
 					time.Second,
 				)).
-				WithTimeout(5 * time.Minute).
+				WithTimeout(5*time.Minute).
 				WithPolling(wait.DefaultInterval).
-				Should(Succeed())
+				Should(
+					Succeed(),
+					failurehandler.PodsNotReady(state.GetFramework(), fakeWC),
+				)
 		})
 
 	})
