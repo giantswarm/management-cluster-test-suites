@@ -7,7 +7,7 @@ replace github.com/imdario/mergo => github.com/imdario/mergo v0.3.16
 replace github.com/alessio/shellescape => al.essio.dev/pkg/shellescape v1.5.1
 
 require (
-	github.com/giantswarm/clustertest v1.29.0
+	github.com/giantswarm/clustertest v1.30.1
 	github.com/onsi/ginkgo/v2 v2.21.0
 	github.com/onsi/gomega v1.35.1
 	sigs.k8s.io/controller-runtime v0.19.1
@@ -59,7 +59,7 @@ require (
 	github.com/giantswarm/microerror v0.4.1 // indirect
 	github.com/giantswarm/organization-operator v1.6.4 // indirect
 	github.com/giantswarm/release-operator/v4 v4.2.0 // indirect
-	github.com/giantswarm/releases/sdk v0.8.0 // indirect
+	github.com/giantswarm/releases/sdk v0.9.1 // indirect
 	github.com/go-errors/errors v1.5.1 // indirect
 	github.com/go-gorp/gorp/v3 v3.1.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
@@ -164,21 +164,21 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	helm.sh/helm/v3 v3.16.1 // indirect
-	k8s.io/api v0.31.1 // indirect
+	k8s.io/api v0.31.2 // indirect
 	k8s.io/apiextensions-apiserver v0.31.1 // indirect
-	k8s.io/apimachinery v0.31.1 // indirect
+	k8s.io/apimachinery v0.31.2 // indirect
 	k8s.io/apiserver v0.31.1 // indirect
-	k8s.io/cli-runtime v0.31.1 // indirect
-	k8s.io/client-go v0.31.1 // indirect
+	k8s.io/cli-runtime v0.31.2 // indirect
+	k8s.io/client-go v0.31.2 // indirect
 	k8s.io/cluster-bootstrap v0.31.0 // indirect
-	k8s.io/component-base v0.31.1 // indirect
+	k8s.io/component-base v0.31.2 // indirect
 	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20240903163716-9e1beecbcb38 // indirect
-	k8s.io/kubectl v0.31.1 // indirect
+	k8s.io/kubectl v0.31.2 // indirect
 	k8s.io/utils v0.0.0-20240921022957-49e7df575cb6 // indirect
 	oras.land/oras-go v1.2.6 // indirect
-	sigs.k8s.io/cluster-api v1.8.4 // indirect
-	sigs.k8s.io/e2e-framework v0.4.0 // indirect
+	sigs.k8s.io/cluster-api v1.8.5 // indirect
+	sigs.k8s.io/e2e-framework v0.5.0 // indirect
 	sigs.k8s.io/gateway-api v1.1.0 // indirect
 	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
 	sigs.k8s.io/kustomize/api v0.17.3 // indirect
