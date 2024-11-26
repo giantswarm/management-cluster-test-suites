@@ -9,7 +9,7 @@ replace github.com/alessio/shellescape => al.essio.dev/pkg/shellescape v1.5.1
 require (
 	github.com/giantswarm/clustertest v1.30.2
 	github.com/onsi/ginkgo/v2 v2.22.0
-	github.com/onsi/gomega v1.35.1
+	github.com/onsi/gomega v1.36.0
 	sigs.k8s.io/controller-runtime v0.19.2
 )
 
