@@ -7,7 +7,7 @@ replace github.com/imdario/mergo => github.com/imdario/mergo v0.3.16
 replace github.com/alessio/shellescape => al.essio.dev/pkg/shellescape v1.5.1
 
 require (
-	github.com/giantswarm/clustertest v1.32.0
+	github.com/giantswarm/clustertest v1.32.1
 	github.com/onsi/ginkgo/v2 v2.22.2
 	github.com/onsi/gomega v1.36.2
 	sigs.k8s.io/controller-runtime v0.19.4
