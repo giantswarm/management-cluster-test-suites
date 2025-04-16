@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
+	. "github.com/onsi/ginkgo/v2" // nolint
+	. "github.com/onsi/gomega"    // nolint
 
 	"github.com/giantswarm/clustertest"
 	"github.com/giantswarm/clustertest/pkg/logger"
@@ -27,7 +27,7 @@ func Setup() {
 		state.SetFramework(framework)
 
 		ctx := context.Background()
-		ctx, cancelApplyCtx := context.WithTimeout(ctx, 20*time.Minute)
+		_, cancelApplyCtx := context.WithTimeout(ctx, 20*time.Minute)
 		defer cancelApplyCtx()
 
 		// In certain cases, when connecting over the VPN, it is possible that the tunnel
@@ -47,7 +47,7 @@ func Setup() {
 	AfterSuite(func() {
 		// Ensure we reset the context timeout to make sure we allow plenty of time to clean up
 		ctx := state.GetContext()
-		ctx, _ = context.WithTimeout(ctx, 1*time.Hour)
+		ctx, _ = context.WithTimeout(ctx, 1*time.Hour) // nolint
 		state.SetContext(ctx)
 
 		// TODO: Any cleanup ?
