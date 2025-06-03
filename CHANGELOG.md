@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added tests to check for Apps being installed successfully including default apps, observability bundle and security bundle
+
 ### Changed
 
 - Reduced consistent check for worker nodes from 12 down to 3
