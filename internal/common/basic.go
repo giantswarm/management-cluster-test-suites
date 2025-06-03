@@ -6,7 +6,9 @@ import (
 
 	. "github.com/onsi/ginkgo/v2" // nolint
 	. "github.com/onsi/gomega"    // nolint
+	"k8s.io/apimachinery/pkg/types"
 
+	"github.com/giantswarm/apiextensions-application/api/v1alpha1"
 	"github.com/giantswarm/clustertest/pkg/application"
 	"github.com/giantswarm/clustertest/pkg/client"
 	"github.com/giantswarm/clustertest/pkg/failurehandler"
@@ -95,6 +97,90 @@ func RunBasic() {
 				WithTimeout(15 * time.Minute).
 				WithPolling(wait.DefaultInterval).
 				Should(Succeed())
+		})
+
+		It("has all default Apps installed successfully", func() {
+			defaultAppsSelectorLabels := cr.MatchingLabels{
+				"giantswarm.io/cluster":        fakeWC.Name,
+				"app.kubernetes.io/managed-by": "Helm",
+			}
+
+			appList := &v1alpha1.AppList{}
+			err := state.GetFramework().MC().List(state.GetContext(), appList, cr.InNamespace(fakeWC.Organization.GetNamespace()), defaultAppsSelectorLabels)
+			Expect(err).NotTo(HaveOccurred())
+
+			appNamespacedNames := []types.NamespacedName{}
+			for _, app := range appList.Items {
+				appNamespacedNames = append(appNamespacedNames, types.NamespacedName{Name: app.Name, Namespace: app.Namespace})
+			}
+
+			Eventually(wait.IsAllAppDeployed(state.GetContext(), state.GetFramework().MC(), appNamespacedNames)).
+				WithTimeout(20*time.Minute).
+				WithPolling(10*time.Second).
+				Should(
+					BeTrue(),
+					failurehandler.Bundle(
+						failurehandler.AppIssues(state.GetFramework(), fakeWC),
+						// TODO: enable once we have a way to report owning teams without coping code across from cluster-test-suites
+						// reportOwningTeams(),
+					),
+				)
+		})
+
+		It("all observability-bundle apps are deployed without issues", func() {
+			// We need to wait for the observability-bundle app to be deployed before we can check the apps it deploys.
+			observabilityAppsAppName := fmt.Sprintf("%s-%s", fakeWC.Name, "observability-bundle")
+
+			Eventually(wait.IsAppDeployed(state.GetContext(), state.GetFramework().MC(), observabilityAppsAppName, fakeWC.GetNamespace())).
+				WithTimeout(30 * time.Second).
+				WithPolling(50 * time.Millisecond).
+				Should(BeTrue())
+
+			// Wait for all observability-bundle apps to be deployed
+			appList := &v1alpha1.AppList{}
+			err := state.GetFramework().MC().List(state.GetContext(), appList, cr.InNamespace(fakeWC.Organization.GetNamespace()), cr.MatchingLabels{"giantswarm.io/managed-by": observabilityAppsAppName})
+			Expect(err).NotTo(HaveOccurred())
+
+			appNamespacedNames := []types.NamespacedName{}
+			for _, app := range appList.Items {
+				appNamespacedNames = append(appNamespacedNames, types.NamespacedName{Name: app.Name, Namespace: app.Namespace})
+			}
+
+			Eventually(wait.IsAllAppDeployed(state.GetContext(), state.GetFramework().MC(), appNamespacedNames)).
+				WithTimeout(8*time.Minute).
+				WithPolling(10*time.Second).
+				Should(
+					BeTrue(),
+					failurehandler.AppIssues(state.GetFramework(), fakeWC),
+				)
+		})
+
+		It("all security-bundle apps are deployed without issues", func() {
+			// We need to wait for the security-bundle app to be deployed before we can check the apps it deploys.
+			securityAppsAppName := fmt.Sprintf("%s-%s", fakeWC.Name, "security-bundle")
+
+			Eventually(wait.IsAppDeployed(state.GetContext(), state.GetFramework().MC(), securityAppsAppName, fakeWC.GetNamespace())).
+				WithTimeout(30 * time.Second).
+				WithPolling(50 * time.Millisecond).
+				Should(BeTrue())
+
+			// Wait for all security-bundle apps to be deployed
+			appList := &v1alpha1.AppList{}
+			err := state.GetFramework().MC().List(state.GetContext(), appList, cr.InNamespace(fakeWC.Organization.GetNamespace()), cr.MatchingLabels{"giantswarm.io/managed-by": securityAppsAppName})
+			Expect(err).NotTo(HaveOccurred())
+
+			appNamespacedNames := []types.NamespacedName{}
+			for _, app := range appList.Items {
+				appNamespacedNames = append(appNamespacedNames, types.NamespacedName{Name: app.Name, Namespace: app.Namespace})
+			}
+
+			Eventually(wait.IsAllAppDeployed(state.GetContext(), state.GetFramework().MC(), appNamespacedNames)).
+				WithTimeout(10*time.Minute).
+				WithPolling(10*time.Second).
+				Should(
+					BeTrue(),
+					failurehandler.AppIssues(state.GetFramework(), fakeWC),
+				)
 		})
 
 		It("has all its Deployments Ready (means all replicas are running)", func() {
