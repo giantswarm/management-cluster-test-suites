@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Reduced consistent check for worker nodes from 12 down to 3
+
 ## [0.5.0] - 2025-05-30
 
 ### Added
