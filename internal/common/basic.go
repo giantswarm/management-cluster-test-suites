@@ -91,7 +91,7 @@ func RunBasic() {
 					}
 					return nil
 				},
-				12, 5*time.Second)).
+				3, 5*time.Second)).
 				WithTimeout(15 * time.Minute).
 				WithPolling(wait.DefaultInterval).
 				Should(Succeed())
