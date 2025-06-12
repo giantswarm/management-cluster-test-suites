@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Switched to using WaitConditionSlice functions to provide more information in the test failure messages
+
 ## [0.6.0] - 2025-06-03
 
 ### Added
