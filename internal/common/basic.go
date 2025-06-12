@@ -114,11 +114,11 @@ func RunBasic() {
 				appNamespacedNames = append(appNamespacedNames, types.NamespacedName{Name: app.Name, Namespace: app.Namespace})
 			}
 
-			Eventually(wait.IsAllAppDeployed(state.GetContext(), state.GetFramework().MC(), appNamespacedNames)).
+			Eventually(wait.AreAllAppDeployedSlice(state.GetContext(), state.GetFramework().MC(), appNamespacedNames)).
 				WithTimeout(20*time.Minute).
 				WithPolling(10*time.Second).
 				Should(
-					BeTrue(),
+					BeEmpty(),
 					failurehandler.Bundle(
 						failurehandler.AppIssues(state.GetFramework(), fakeWC),
 						// TODO: enable once we have a way to report owning teams without coping code across from cluster-test-suites
@@ -146,11 +146,11 @@ func RunBasic() {
 				appNamespacedNames = append(appNamespacedNames, types.NamespacedName{Name: app.Name, Namespace: app.Namespace})
 			}
 
-			Eventually(wait.IsAllAppDeployed(state.GetContext(), state.GetFramework().MC(), appNamespacedNames)).
+			Eventually(wait.AreAllAppDeployedSlice(state.GetContext(), state.GetFramework().MC(), appNamespacedNames)).
 				WithTimeout(8*time.Minute).
 				WithPolling(10*time.Second).
 				Should(
-					BeTrue(),
+					BeEmpty(),
 					failurehandler.AppIssues(state.GetFramework(), fakeWC),
 				)
 		})
@@ -174,34 +174,35 @@ func RunBasic() {
 				appNamespacedNames = append(appNamespacedNames, types.NamespacedName{Name: app.Name, Namespace: app.Namespace})
 			}
 
-			Eventually(wait.IsAllAppDeployed(state.GetContext(), state.GetFramework().MC(), appNamespacedNames)).
+			Eventually(wait.AreAllAppDeployedSlice(state.GetContext(), state.GetFramework().MC(), appNamespacedNames)).
 				WithTimeout(10*time.Minute).
 				WithPolling(10*time.Second).
 				Should(
-					BeTrue(),
+					BeEmpty(),
 					failurehandler.AppIssues(state.GetFramework(), fakeWC),
 				)
 		})
 
 		It("has all its Deployments Ready (means all replicas are running)", func() {
 			Eventually(
-				wait.ConsistentWaitCondition(
-					wait.AreAllDeploymentsReady(state.GetContext(), state.GetFramework().MC()),
+				wait.ConsistentWaitConditionSlice(
+					wait.AreAllDeploymentsReadySlice(state.GetContext(), state.GetFramework().MC()),
 					5,
 					time.Second,
-				)).
-				WithTimeout(5*time.Minute).
+				),
+			).
+				WithTimeout(1*time.Minute).
 				WithPolling(wait.DefaultInterval).
 				Should(
-					Succeed(),
+					BeEmpty(),
 					failurehandler.DeploymentsNotReady(state.GetFramework(), fakeWC),
 				)
 		})
 
 		It("has all its StatefulSets Ready (means all replicas are running)", func() {
 			Eventually(
-				wait.ConsistentWaitCondition(
-					wait.AreAllStatefulSetsReady(state.GetContext(), state.GetFramework().MC()),
+				wait.ConsistentWaitConditionSlice(
+					wait.AreAllStatefulSetsReadySlice(state.GetContext(), state.GetFramework().MC()),
 					5,
 					time.Second,
 				)).
@@ -215,8 +216,8 @@ func RunBasic() {
 
 		It("has all its DaemonSets Ready (means all daemon pods are running)", func() {
 			Eventually(
-				wait.ConsistentWaitCondition(
-					wait.AreAllDaemonSetsReady(state.GetContext(), state.GetFramework().MC()),
+				wait.ConsistentWaitConditionSlice(
+					wait.AreAllDaemonSetsReadySlice(state.GetContext(), state.GetFramework().MC()),
 					5,
 					time.Second,
 				)).
@@ -230,8 +231,8 @@ func RunBasic() {
 
 		It("has all its Jobs completed successfully", func() {
 			Eventually(
-				wait.ConsistentWaitCondition(
-					wait.AreAllJobsSucceeded(state.GetContext(), state.GetFramework().MC()),
+				wait.ConsistentWaitConditionSlice(
+					wait.AreAllJobsSucceededSlice(state.GetContext(), state.GetFramework().MC()),
 					5,
 					time.Second,
 				)).
@@ -245,8 +246,8 @@ func RunBasic() {
 
 		It("has all of its Pods in the Running state", func() {
 			Eventually(
-				wait.ConsistentWaitCondition(
-					wait.AreAllPodsInSuccessfulPhase(state.GetContext(), state.GetFramework().MC()),
+				wait.ConsistentWaitConditionSlice(
+					wait.AreAllPodsInSuccessfulPhaseSlice(state.GetContext(), state.GetFramework().MC()),
 					5,
 					time.Second,
 				)).
