@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix Slice-based tests incorrectly still using `Succeed()` check
+
 ## [0.7.0] - 2025-06-12
 
 ### Changed

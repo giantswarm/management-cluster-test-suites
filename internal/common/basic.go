@@ -209,7 +209,7 @@ func RunBasic() {
 				WithTimeout(5*time.Minute).
 				WithPolling(wait.DefaultInterval).
 				Should(
-					Succeed(),
+					BeEmpty(),
 					failurehandler.StatefulSetsNotReady(state.GetFramework(), fakeWC),
 				)
 		})
@@ -224,7 +224,7 @@ func RunBasic() {
 				WithTimeout(5*time.Minute).
 				WithPolling(wait.DefaultInterval).
 				Should(
-					Succeed(),
+					BeEmpty(),
 					failurehandler.DaemonSetsNotReady(state.GetFramework(), fakeWC),
 				)
 		})
@@ -239,7 +239,7 @@ func RunBasic() {
 				WithTimeout(5*time.Minute).
 				WithPolling(wait.DefaultInterval).
 				Should(
-					Succeed(),
+					BeEmpty(),
 					failurehandler.JobsUnsuccessful(state.GetFramework(), fakeWC),
 				)
 		})
@@ -254,7 +254,7 @@ func RunBasic() {
 				WithTimeout(5*time.Minute).
 				WithPolling(wait.DefaultInterval).
 				Should(
-					Succeed(),
+					BeEmpty(),
 					failurehandler.PodsNotReady(state.GetFramework(), fakeWC),
 				)
 		})
