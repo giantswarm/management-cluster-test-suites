@@ -7,8 +7,8 @@ import (
 	. "github.com/onsi/ginkgo/v2" // nolint
 	. "github.com/onsi/gomega"    // nolint
 
-	"github.com/giantswarm/clustertest"
-	"github.com/giantswarm/clustertest/pkg/logger"
+	"github.com/giantswarm/clustertest/v2"
+	"github.com/giantswarm/clustertest/v2/pkg/logger"
 
 	"github.com/giantswarm/management-cluster-test-suites/internal/state"
 )
