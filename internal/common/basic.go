@@ -49,8 +49,12 @@ func RunBasic() {
 
 		It("has all the worker nodes running", func() {
 			values := &application.ClusterValues{}
-			err := state.GetFramework().MC().GetHelmValues(fakeWC.Name, fakeWC.GetNamespace(), values)
-			Expect(err).NotTo(HaveOccurred())
+			By(fmt.Sprintf("fetching values for Helm release %s/%s", fakeWC.GetNamespace(), fakeWC.Name))
+			Eventually(func() error {
+				return state.GetFramework().MC().GetHelmValues(fakeWC.Name, fakeWC.GetNamespace(), values)
+			}).
+				WithTimeout(10 * time.Minute).
+				Should(Succeed())
 
 			minNodes := 0
 			maxNodes := 0
