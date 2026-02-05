@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Go: Update dependencies.
+- Wait for cluster Helm release since it may not immediately exist on newly-pivoted MC
 
 ## [1.1.2] - 2025-12-15
 
