@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Go: Update `clustertest` to v4.0.0 (CAPI v1beta1 to v1beta2 migration).
+
 ## [1.1.4] - 2026-02-17
 
 ### Changed
