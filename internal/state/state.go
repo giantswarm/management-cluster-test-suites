@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/giantswarm/clustertest/v4"
+	"github.com/giantswarm/clustertest/v5"
 )
 
 var lock = &sync.Mutex{}
