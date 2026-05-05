@@ -17,7 +17,7 @@ import (
 	"github.com/giantswarm/clustertest/v5/pkg/wait"
 	cr "sigs.k8s.io/controller-runtime/pkg/client"
 
-	"github.com/giantswarm/management-cluster-test-suites/internal/state"
+	"github.com/giantswarm/management-cluster-test-suites/v2/internal/state"
 )
 
 func RunBasic() {

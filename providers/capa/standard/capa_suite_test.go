@@ -6,7 +6,7 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.com/giantswarm/management-cluster-test-suites/internal/suite"
+	"github.com/giantswarm/management-cluster-test-suites/v2/internal/suite"
 )
 
 func TestCAPAStandard(t *testing.T) {
