@@ -1,4 +1,4 @@
-module github.com/giantswarm/management-cluster-test-suites
+module github.com/giantswarm/management-cluster-test-suites/v2
 
 go 1.26.2
 
