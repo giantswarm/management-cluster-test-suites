@@ -1,26 +1,46 @@
-FROM golang:1.26 AS build-tests
+# Use Debian to obtain CA certificates.
+FROM --platform=${BUILDPLATFORM} debian:trixie-slim AS certificates
 
-WORKDIR /app
+# Install ca-certificates.
+RUN apt-get update && apt-get install --yes ca-certificates
 
+# Use Go for installing Ginkgo and building tests.
+FROM --platform=${BUILDPLATFORM} golang:1.26 AS tests
+
+ARG TARGETOS
+ARG TARGETARCH
+
+# Install Ginkgo for building tests on build platform.
 RUN go install github.com/onsi/ginkgo/v2/ginkgo@latest
 
-ADD go.mod go.sum ./
+# Install Ginkgo for running tests on target platform.
+RUN GOOS="${TARGETOS}" GOARCH="${TARGETARCH}" go install github.com/onsi/ginkgo/v2/ginkgo@latest
 
-RUN go mod download
+# Copy Ginkgo for running tests on target platform.
+RUN [ "${TARGETOS}" = "$(go env GOOS)" ] && [ "${TARGETARCH}" = "$(go env GOARCH)" ] && \
+    cp "/go/bin/ginkgo" /tmp/ginkgo || \
+    cp "/go/bin/${TARGETOS}_${TARGETARCH}/ginkgo" /tmp/ginkgo
 
-ADD . .
-
-RUN ginkgo build --skip-package /X -r ./
-
-FROM debian:bookworm-slim
-
+# Copy sources.
 WORKDIR /app
+COPY . .
 
-RUN apt-get update \
-  && apt-get install --no-install-recommends --no-install-suggests -y ca-certificates \
-  && rm -rf /var/lib/apt/lists/*
+# Build tests for target platform.
+RUN GOOS="${TARGETOS}" GOARCH="${TARGETARCH}" ginkgo build --skip-package /X -r ./
 
-COPY --from=build-tests /app /app
-COPY --from=build-tests /go/bin/ginkgo /usr/local/bin/ginkgo
+# Use Debian for running tests.
+FROM debian:trixie-slim
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+# Copy CA certificates.
+COPY --from=certificates /etc/ssl/certs/ /etc/ssl/certs/
+COPY --from=certificates /usr/share/ca-certificates/ /usr/share/ca-certificates/
+
+# Copy Ginkgo.
+COPY --from=tests /tmp/ginkgo /usr/local/bin/ginkgo
+
+# Copy tests.
+COPY --from=tests /app /app
+
+# Define entrypoint.
+WORKDIR /app
+ENTRYPOINT [ "/app/entrypoint.sh" ]
