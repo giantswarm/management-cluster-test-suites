@@ -5,7 +5,7 @@ FROM --platform=${BUILDPLATFORM} debian:trixie-slim AS certificates
 RUN apt-get update && apt-get install --yes ca-certificates
 
 # Use Go for installing Ginkgo and building tests.
-FROM --platform=${BUILDPLATFORM} golang:1.26 AS tests
+FROM --platform=${BUILDPLATFORM} golang:1.27 AS tests
 
 ARG TARGETOS
 ARG TARGETARCH
