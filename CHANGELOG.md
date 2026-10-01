@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.6] - 2026-10-01
+
 ### Changed
 
 - Go: Update dependencies.
@@ -196,7 +198,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial basic cluster-wide tests
 - CAPA standard test suite
 
-[Unreleased]: https://github.com/giantswarm/management-cluster-test-suites/compare/v2.0.5...HEAD
+[Unreleased]: https://github.com/giantswarm/management-cluster-test-suites/compare/v2.0.6...HEAD
+[2.0.6]: https://github.com/giantswarm/management-cluster-test-suites/compare/v2.0.5...v2.0.6
 [2.0.5]: https://github.com/giantswarm/management-cluster-test-suites/compare/v2.0.4...v2.0.5
 [2.0.4]: https://github.com/giantswarm/management-cluster-test-suites/compare/v2.0.3...v2.0.4
 [2.0.3]: https://github.com/giantswarm/management-cluster-test-suites/compare/v2.0.2...v2.0.3
